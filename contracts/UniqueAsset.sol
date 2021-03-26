@@ -8,15 +8,15 @@ contract UniqueAsset is ERC721 {
 	Counters.Counter private _tokenIds;
 	mapping(string => uint8) hashes;
 
-	constructor() public ERC721("UniqueAsset", "UNA");
+	constructor() public ERC721("UniqueAsset", "UNA") {}
 
-	function awardItem(address recipient, string memory hash, string memory metaData) public returns(uint256) {
+	function awardItem(address recipient, string memory hash, string memory metadata) public returns(uint256) {
 		require(hashes[hash] != 1);
 		hashes[hash] = 1;
 		_tokenIds.increment();
 		uint256 newItemId = _tokenIds.current();
 		_mint(recipient, newItemId);
-		_setTokenURI(newItemId, metaData);
+		_setTokenURI(newItemId, metadata);
 		return newItemId;
 	}
 }
